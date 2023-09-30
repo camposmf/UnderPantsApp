@@ -29,7 +29,6 @@
     <Folder Include="DbContexts\" />
     <Folder Include="Entity\" />
     <Folder Include="Logs\" />
-    <Folder Include="Models\" />
     <Folder Include="Profiles\" />
   </ItemGroup>
 
