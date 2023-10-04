@@ -33,7 +33,7 @@ namespace UnderPantsApp.Controllers
             return Ok(_mapper.Map<UserModel>(userEntity));
         }
 
-        [HttpGet("userid", Name = "GetUser")]
+        [HttpGet("{userId}", Name = "GetUser")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserModel>> GetUser(int userId)
@@ -81,12 +81,12 @@ namespace UnderPantsApp.Controllers
             );
         }
 
-        [HttpPut("userid")]
+        [HttpPut("{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateUser(int userId, UserForUpdateModel user)
         {
-            var userEntity = _userRepository.GetUserAsync(userId);
+            var userEntity = await _userRepository.GetUserAsync(userId);
 
             if(userEntity == null) 
                 return NotFound();
@@ -97,7 +97,7 @@ namespace UnderPantsApp.Controllers
             return NoContent();
         }
 
-        [HttpDelete("userid")]
+        [HttpDelete("{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteUser(int userId)

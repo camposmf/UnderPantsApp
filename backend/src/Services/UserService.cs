@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using UnderPantsApp.DbContexts;
 using UnderPantsApp.Entity;
 using UnderPantsApp.Repository;
