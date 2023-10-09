@@ -27,7 +27,7 @@ namespace UnderPantsApp.Controllers
             var userEntity = await _userRepository.GetLoginAsync(login, password);
 
             if(userEntity == null)
-                return NotFound();
+                return NotFound("Não foi possível fazer o login. Verifique seu nome de usuário e senha e tente novamente.");
 
             return Ok(_mapper.Map<UserModel>(userEntity));
         }
@@ -40,7 +40,7 @@ namespace UnderPantsApp.Controllers
             var userEntity = await _userRepository.GetUserAsync(userId);
 
             if(userEntity == null)
-                return NotFound();
+                return NotFound("Usuário não encontrado no sistema.");
 
             return Ok(_mapper.Map<UserModel>(userEntity));
         }
@@ -52,7 +52,7 @@ namespace UnderPantsApp.Controllers
             var usersEntity = await _userRepository.GetUsersAsync();
 
             if (!usersEntity.Any())
-                return NotFound();
+                return NotFound("Usuário não encontrado no sistema.");
 
             return Ok(_mapper.Map<IEnumerable<UserModel>>(usersEntity));
         }
@@ -85,7 +85,7 @@ namespace UnderPantsApp.Controllers
             var userEntity = await _userRepository.GetUserAsync(userId);
 
             if(userEntity == null) 
-                return NotFound();
+                return NotFound("Usuário não encontrado no sistema.");
 
             _mapper.Map(user, userEntity);
             await _userRepository.SaveChangesAsync();
@@ -101,7 +101,7 @@ namespace UnderPantsApp.Controllers
             var userEntity = await _userRepository.GetUserAsync(userId);
 
             if(userEntity == null) 
-                return NotFound();
+                return NotFound("Usuário não encontrado no sistema.");
 
             _userRepository.DeleteUserAsync(userEntity);
             await _userRepository.SaveChangesAsync();
