@@ -1,6 +1,4 @@
-﻿using UnderPantsApp.Models.FinancialHistory;
-
-namespace UnderPantsApp.Models.Income
+﻿namespace UnderPantsApp.Models.Income
 {
     public class IncomeModel
     {

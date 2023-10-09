@@ -1,6 +1,4 @@
-﻿using UnderPantsApp.Models.FinancialHistory;
-
-namespace UnderPantsApp.Models.Account
+﻿namespace UnderPantsApp.Models.Account
 {
     public class AccountModel
     {

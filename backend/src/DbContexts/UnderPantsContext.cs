@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using UnderPantsApp.Entity;
+﻿using UnderPantsApp.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace UnderPantsApp.DbContexts
 {

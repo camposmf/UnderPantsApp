@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using UnderPantsApp.Entity;
 using UnderPantsApp.DbContexts;
-using UnderPantsApp.Entity;
 using UnderPantsApp.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace UnderPantsApp.Services
 {

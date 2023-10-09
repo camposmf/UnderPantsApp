@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using System.Text.Json;
+using UnderPantsApp.Entity;
+using UnderPantsApp.Repository;
 using Microsoft.AspNetCore.Mvc;
 using UnderPantsApp.Models.User;
-using UnderPantsApp.Repository;
-using UnderPantsApp.Entity;
 
 namespace UnderPantsApp.Controllers
 {
@@ -11,13 +10,13 @@ namespace UnderPantsApp.Controllers
     [Route("users")]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
 
         public UserController(IUserRepository userRepository, IMapper mapper)
         {
-            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         [HttpGet("login")]
@@ -64,13 +63,10 @@ namespace UnderPantsApp.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateUser(UserForCreationModel user)
         {
-
             var userResult = _mapper.Map<User>(user);
             await _userRepository.CreateUserAsync(userResult);
             
-
             var userToReturn = _mapper.Map<UserModel>(userResult);
-
             return CreatedAtRoute(
                 "GetUser",
                 new
@@ -112,6 +108,5 @@ namespace UnderPantsApp.Controllers
 
             return NoContent();
         }
-
     }
 }
