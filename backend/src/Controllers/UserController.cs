@@ -47,6 +47,7 @@ namespace UnderPantsApp.Controllers
 
         [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
         {
             var usersEntity = await _userRepository.GetUsersAsync();
@@ -60,7 +61,6 @@ namespace UnderPantsApp.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateUser(UserForCreationModel user)
         {
             var userResult = _mapper.Map<User>(user);
@@ -103,9 +103,7 @@ namespace UnderPantsApp.Controllers
             if(userEntity == null) 
                 return NotFound("Usuário não encontrado no sistema.");
 
-            _userRepository.DeleteUserAsync(userEntity);
-            await _userRepository.SaveChangesAsync();
-
+            await _userRepository.DeleteUserAsync(userEntity);
             return NoContent();
         }
     }

@@ -21,9 +21,10 @@ namespace UnderPantsApp.Services
             await SaveChangesAsync();
         }
 
-        public void DeleteUserAsync(User user)
+        public async Task DeleteUserAsync(User user)
         {
             _context.Users.Remove(user);
+            await SaveChangesAsync();
         }
 
         public async Task<User?> GetLoginAsync(string login, string password)

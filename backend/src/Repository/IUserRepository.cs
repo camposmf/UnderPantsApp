@@ -6,7 +6,7 @@ namespace UnderPantsApp.Repository
     {
         Task<bool> SaveChangesAsync();
         Task CreateUserAsync(User user);
-        void DeleteUserAsync(User user);
+        Task DeleteUserAsync(User user);
         Task<User?> GetUserAsync(int userId);
         Task<IEnumerable<User>> GetUsersAsync();
         Task<User?> GetLoginAsync(string login, string password);

@@ -26,6 +26,7 @@ builder.Services.AddDbContext<UnderPantsContext>(
 );
 
 builder.Services.AddScoped<IUserRepository, UserService>();
+builder.Services.AddScoped<IExpenseRepository, ExpenseService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
