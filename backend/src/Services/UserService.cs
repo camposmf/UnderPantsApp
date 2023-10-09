@@ -26,16 +26,16 @@ namespace UnderPantsApp.Services
             _context.Users.Remove(user);
         }
 
-        public async Task<User?> GetLoginAsync(string login, string password)
+        public async Task<User> GetLoginAsync(string login, string password)
         {
             return await _context.Users.Where(u => u.Login.Equals(login) && u.Password.Equals(password))
-                                       .FirstOrDefaultAsync();
+                                       .FirstOrDefaultAsync() ?? throw new Exception("Não foi possível fazer o login. Verifique seu nome de usuário e senha e tente novamente.");
         }
 
-        public async Task<User?> GetUserAsync(int userId)
+        public async Task<User> GetUserAsync(int userId)
         {
             return await _context.Users.Where(u => u.Id.Equals(userId))
-                                       .FirstOrDefaultAsync();
+                                       .FirstOrDefaultAsync() ?? throw new Exception("Usuário não encontrado.");
         }
 
         public async Task<IEnumerable<User>> GetUsersAsync()
