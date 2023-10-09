@@ -10,18 +10,14 @@ namespace UnderPantsApp.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [ForeignKey("HistoryId")]
-        public FinancialHistory? History { get; set; }
-        public int HistoryId { get; set; }
-
         [Required]
-        [MaxLength(255)]
-        public string Description { get; set; } = string.Empty;
+        public DateTime Date { get; set; }
 
         [Required]
         public double Amount { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        [MaxLength(255)]
+        public string Description { get; set; } = string.Empty;
     }
 }
