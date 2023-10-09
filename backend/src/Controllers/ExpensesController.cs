@@ -9,12 +9,12 @@ namespace UnderPantsApp.Controllers
 {
     [ApiController]
     [Route("expenses")]
-    public class ExpenseController : ControllerBase
+    public class ExpensesController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IExpenseRepository _expenseRepository;
 
-        public ExpenseController(IExpenseRepository expenseRepository, IMapper mapper)
+        public ExpensesController(IExpenseRepository expenseRepository, IMapper mapper)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _expenseRepository = expenseRepository ?? throw new ArgumentNullException(nameof(expenseRepository));
@@ -57,7 +57,7 @@ namespace UnderPantsApp.Controllers
             if (expenseEntity == null)
                 return NotFound("Despesa não encontrada no sistema.");
 
-            await _expenseRepository.DeleteUserAsync(expenseEntity);
+            await _expenseRepository.DeleteExpenseAsync(expenseEntity);
             return NoContent();
         }
     }

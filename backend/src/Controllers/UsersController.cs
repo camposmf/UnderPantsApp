@@ -8,12 +8,12 @@ namespace UnderPantsApp.Controllers
 {
     [ApiController]
     [Route("users")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public UserController(IUserRepository userRepository, IMapper mapper)
+        public UsersController(IUserRepository userRepository, IMapper mapper)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
@@ -80,7 +80,7 @@ namespace UnderPantsApp.Controllers
         [HttpPut("{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> UpdateUser(int userId, UserForUpdateModel user)
+        public async Task<IActionResult> UpdateUser(int userId, UserForUpdateModel user)
         {
             var userEntity = await _userRepository.GetUserAsync(userId);
 

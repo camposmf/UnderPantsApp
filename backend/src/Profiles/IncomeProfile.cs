@@ -9,6 +9,8 @@ namespace UnderPantsApp.Profiles
         public IncomeProfile() 
         {
             CreateMap<Income, IncomeModel>();
+            CreateMap<IncomeForUpdateModel, Income>();
+            CreateMap<IncomeForCreationModel, Income>();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace UnderPantsApp.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task DeleteUserAsync(Expense expense)
+        public async Task DeleteExpenseAsync(Expense expense)
         {
             _context.Expenses.Remove(expense);
             await SaveChangesAsync();
