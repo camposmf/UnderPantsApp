@@ -9,6 +9,8 @@ namespace UnderPantsApp.Profiles
         public SavingsGoalProfile() 
         {
             CreateMap<SavingsGoal, SavingsGoalModel>();
+            CreateMap<SavingsGoalForUpdateModel, SavingsGoal>();
+            CreateMap<SavingsGoalForCreationModel, SavingsGoal>();
         }
     }
 }

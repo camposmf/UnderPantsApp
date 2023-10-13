@@ -9,12 +9,12 @@ namespace UnderPantsApp.Controllers
 {
     [ApiController]
     [Route("accounts")]
-    public class AccountController : ControllerBase
+    public class AccountsController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IAccountRepository _accountRepository;
 
-        public AccountController(IAccountRepository accountRepository, IMapper mapper) 
+        public AccountsController(IAccountRepository accountRepository, IMapper mapper) 
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _accountRepository = accountRepository ?? throw new ArgumentNullException(nameof(accountRepository));
@@ -60,6 +60,5 @@ namespace UnderPantsApp.Controllers
             await _accountRepository.DeleteChangesAsync(accountEntity);
             return NoContent();
         }
-
     }
 }
