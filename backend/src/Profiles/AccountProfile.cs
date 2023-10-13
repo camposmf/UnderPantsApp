@@ -9,6 +9,8 @@ namespace UnderPantsApp.Profiles
         public AccountProfile() 
         {
             CreateMap<Account, AccountModel>();
+            CreateMap<AccountForUpdateModel, Account>();
+            CreateMap<AccountForCreationModel, Account>();
         }
     }
 }

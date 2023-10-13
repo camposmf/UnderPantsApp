@@ -26,8 +26,10 @@ builder.Services.AddDbContext<UnderPantsContext>(
 );
 
 builder.Services.AddScoped<IUserRepository, UserService>();
-builder.Services.AddScoped<IExpenseRepository, ExpenseService>();
 builder.Services.AddScoped<IIncomeRepository, IncomeService>();
+builder.Services.AddScoped<IAccountRepository, AccountService>();
+builder.Services.AddScoped<IExpenseRepository, ExpenseService>();
+builder.Services.AddScoped<ISavingsGoalRepository, SavingsGoalService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
