@@ -9,10 +9,10 @@ namespace UnderPantsApp.Models.FinancialHistory
     public class FinancialHistoryModel
     {
         public int Id { get; set; }
-        public UserModel UserId { get; set; } = new UserModel();
-        public IncomeModel Income { get; set; } = new IncomeModel();
-        public AccountModel account { get; set; } = new AccountModel();
-        public ExpenseModel Expense { get; set; } = new ExpenseModel();
-        public SavingsGoalModel SavingsGoal { get; set; } = new SavingsGoalModel();
+        public UserModel Users { get; set; } = new UserModel();
+        public ICollection<IncomeModel> Incomes { get; set; } = new List<IncomeModel>();
+        public ICollection<AccountModel> Accounts { get; set; } = new List<AccountModel>();
+        public ICollection<ExpenseModel> Expenses { get; set; } = new List<ExpenseModel>();
+        public ICollection<SavingsGoalModel> SavingsGoal { get; set; } = new List<SavingsGoalModel>();
     }
 }

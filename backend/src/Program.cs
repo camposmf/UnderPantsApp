@@ -30,6 +30,7 @@ builder.Services.AddScoped<IIncomeRepository, IncomeService>();
 builder.Services.AddScoped<IAccountRepository, AccountService>();
 builder.Services.AddScoped<IExpenseRepository, ExpenseService>();
 builder.Services.AddScoped<ISavingsGoalRepository, SavingsGoalService>();
+builder.Services.AddScoped<IFinancialHistoryRepository, FinancialHistoryService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
