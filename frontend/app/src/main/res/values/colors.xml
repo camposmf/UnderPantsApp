@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="cor_mapa">#FF00DAD2</color>
+    <color name="cor_restaurantes">#C42252FF</color>
+    <color name="cor_eventos">#B4673AB7</color>
+    <color name="cor_recompensas">#A9E600FF</color>
+    <color name="cor_sac">#B0BC3B</color>
+    <color name="cor_lojas">#BA00FF00</color>
+    <color name="cor_estacionamento">#FFFF5733</color>
+    <color name="cor_teatro">#FFBC8F8F</color>
+    <color name="cor_cinema">#1C1D3E</color>
+
+    <color name="midnightblue">#47F5F3</color>
+    <color name="alizarin">#53A1F5</color>
+</resources>
