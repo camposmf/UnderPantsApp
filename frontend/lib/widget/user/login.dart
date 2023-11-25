@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/widget/register-user.dart';
+import 'package:frontend/widget/user/register-user.dart';
 
 import 'change-password.dart';
-import 'home.dart';
+import '../home.dart';
 
 class LoginScreen extends StatelessWidget {
   @override

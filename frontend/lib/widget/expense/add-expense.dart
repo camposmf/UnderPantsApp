@@ -22,10 +22,15 @@ class AddExpenseScreen extends StatelessWidget {
             color: Color(0xff000000),
           ),
         ),
-        leading: Icon(
-          Icons.arrow_back,
-          color: Color(0xff212435),
-          size: 24,
+        leading: InkWell(
+          onTap: (){
+            Navigator.of(context).pop();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Color(0xff212435),
+            size: 24,
+          ),
         ),
       ),
       body: Padding(
@@ -40,65 +45,9 @@ class AddExpenseScreen extends StatelessWidget {
                 margin: EdgeInsets.all(0),
                 padding: EdgeInsets.all(0),
                 width: MediaQuery.of(context).size.width,
-                height: 160,
-                decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.zero,
-                  border: Border.all(color: Color(0x859d9b9b), width: 1),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    TextField(
-                      controller: TextEditingController(),
-                      obscureText: false,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 22,
-                        color: Color(0xff000000),
-                      ),
-                      decoration: InputDecoration(
-                        disabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        hintText: "00.0",
-                        hintStyle: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 22,
-                          color: Color(0xff000000),
-                        ),
-                        filled: true,
-                        fillColor: Color(0xffffffff),
-                        isDense: false,
-                        contentPadding: EdgeInsets.all(8),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-                      child: Text(
-                        "INR",
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 20,
-                          color: Color(0xff000000),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Text(
                   "Name",
                   textAlign: TextAlign.start,
@@ -441,27 +390,6 @@ class AddExpenseScreen extends StatelessWidget {
                     EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   ),
                 ),
-              ),
-              MaterialButton(
-                onPressed: () {},
-                color: Color(0xffffffff),
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                  side: BorderSide(color: Color(0xff808080), width: 1),
-                ),
-                padding: EdgeInsets.all(16),
-                child: Text(
-                  "Select Color",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                  ),
-                ),
-                textColor: Color(0xff000000),
-                height: 45,
-                minWidth: MediaQuery.of(context).size.width,
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
