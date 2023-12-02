@@ -63,7 +63,11 @@ flutter:
   assets:
     - assets/underpants.png
     - assets/main_underpants.png
-
+    - assets/img_home.png
+    - assets/img_despesas.png
+    - assets/img_metas.png
+    - assets/img_renda.png
+    - assets/img_historico_financeiro.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
