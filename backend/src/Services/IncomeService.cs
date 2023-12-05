@@ -26,6 +26,11 @@ namespace UnderPantsApp.Services
                                          .FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Income>> GetIncomesAsync()
+        {
+            return await _context.Incomes.ToListAsync();
+        }
+
         public async Task RegisterIncomeAsync(Income income)
         {
             _context.Incomes.Add(income);

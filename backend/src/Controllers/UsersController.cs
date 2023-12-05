@@ -106,5 +106,6 @@ namespace UnderPantsApp.Controllers
             await _userRepository.DeleteUserAsync(userEntity);
             return NoContent();
         }
+
     }
 }

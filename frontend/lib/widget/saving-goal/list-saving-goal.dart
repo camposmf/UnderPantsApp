@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widget/saving-goal/add-saving-goal.dart';
+import 'package:frontend/widget/saving-goal/list-detailed-saving-goal.dart';
 
-import 'add-expense.dart';
-import 'list-detailed-expense.dart';
-
-class ListExpenseScreen extends StatelessWidget {
+class ListSavingGoalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +16,7 @@ class ListExpenseScreen extends StatelessWidget {
           borderRadius: BorderRadius.zero,
         ),
         title: Text(
-          "Controle de Despesas",
+          "Controle de Metas e objetivos",
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontStyle: FontStyle.normal,
@@ -26,7 +25,7 @@ class ListExpenseScreen extends StatelessWidget {
           ),
         ),
         leading: InkWell(
-          onTap: (){
+          onTap: () {
             Navigator.of(context).pop();
           },
           child: Icon(
@@ -44,16 +43,13 @@ class ListExpenseScreen extends StatelessWidget {
           color: Color(0xffffffff),
           size: 24,
         ),
-        onPressed: (){
+        onPressed: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AddExpenseScreen()
-              ),
+            context,
+            MaterialPageRoute(builder: (context) => AddSavingGoalScreen()),
           );
         },
       ),
-
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -77,66 +73,66 @@ class ListExpenseScreen extends StatelessWidget {
                     border: Border.all(color: Color(0x4d9e9e9e), width: 1),
                   ),
                   child: InkWell(
-                  onTap: (){
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ListDetailedExpenseScreen())
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              "Netflix",
-                              textAlign: TextAlign.start,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontStyle: FontStyle.normal,
-                                fontSize: 14,
-                                color: Color(0xff000000),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                              child: Text(
-                                "My Monthly netflix subscription",
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              ListDetailedSavingGoalScreen()));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                "Netflix",
                                 textAlign: TextAlign.start,
-                                maxLines: 2,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w700,
                                   fontStyle: FontStyle.normal,
                                   fontSize: 14,
                                   color: Color(0xff000000),
                                 ),
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                                child: Text(
+                                  "My Monthly netflix subscription",
+                                  textAlign: TextAlign.start,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 14,
+                                    color: Color(0xff000000),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Text(
-                        "\$ 895",
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.normal,
-                          fontSize: 20,
-                          color: Color(0xff000000),
+                        Text(
+                          "\$ 895",
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 20,
+                            color: Color(0xff000000),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                   ),
                 ),
                 Container(

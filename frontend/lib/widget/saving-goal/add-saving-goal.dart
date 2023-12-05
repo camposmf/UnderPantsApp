@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AddIncomeScreen extends StatelessWidget {
-  double paddingBottom = 20;
-
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
-  final TextEditingController amountController = TextEditingController();
-  final TextEditingController periodicityController = TextEditingController();
-
+class AddSavingGoalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,17 +9,17 @@ class AddIncomeScreen extends StatelessWidget {
         elevation: 4,
         centerTitle: false,
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xFF4193F3),
+        backgroundColor: Color(0xffffffff),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.zero,
         ),
         title: Text(
-          "Adicionar Renda",
+          "Add Subscription",
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontStyle: FontStyle.normal,
             fontSize: 16,
-            color: Color(0xffffffff),
+            color: Color(0xff000000),
           ),
         ),
         leading: InkWell(
@@ -36,7 +28,7 @@ class AddIncomeScreen extends StatelessWidget {
           },
           child: Icon(
             Icons.arrow_back,
-            color: Color(0xffffffff),
+            color: Color(0xff212435),
             size: 24,
           ),
         ),
@@ -55,9 +47,9 @@ class AddIncomeScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Text(
-                  "Nome",
+                  "Name",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
                   style: TextStyle(
@@ -69,7 +61,7 @@ class AddIncomeScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, paddingBottom),
+                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: TextField(
                   controller: TextEditingController(),
                   obscureText: false,
@@ -115,7 +107,7 @@ class AddIncomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: Text(
-                  "Descrição",
+                  "Description",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
                   style: TextStyle(
@@ -127,7 +119,7 @@ class AddIncomeScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, paddingBottom),
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 0),
                 child: TextField(
                   controller: TextEditingController(),
                   obscureText: false,
@@ -155,7 +147,7 @@ class AddIncomeScreen extends StatelessWidget {
                       borderSide:
                           BorderSide(color: Color(0x00000000), width: 1),
                     ),
-                    hintText: "e.g. Plano Prêmio",
+                    hintText: "e.g. Premium plan",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
@@ -173,7 +165,7 @@ class AddIncomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: Text(
-                  "Data de Renda",
+                  "Billing Period",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
                   style: TextStyle(
@@ -185,7 +177,178 @@ class AddIncomeScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 16),
+                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      "Every",
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14,
+                        color: Color(0xff000000),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+                        child: TextField(
+                          controller: TextEditingController(),
+                          obscureText: false,
+                          textAlign: TextAlign.start,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14,
+                            color: Color(0xff000000),
+                          ),
+                          decoration: InputDecoration(
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: BorderSide(
+                                  color: Color(0x00000000), width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: BorderSide(
+                                  color: Color(0x00000000), width: 1),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: BorderSide(
+                                  color: Color(0x00000000), width: 1),
+                            ),
+                            hintText: "1",
+                            hintStyle: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 14,
+                              color: Color(0xff000000),
+                            ),
+                            filled: true,
+                            fillColor: Color(0xfff2f2f4),
+                            isDense: false,
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 12),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                        width: 130,
+                        height: 50,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: Color(0xfff2f2f4),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: "Day",
+                            items: ["Day", "Week", "Month", "Year"]
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            style: TextStyle(
+                              color: Color(0xff000000),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                            ),
+                            onChanged: (value) {},
+                            elevation: 8,
+                            isExpanded: true,
+                          ),
+                        )),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: Text(
+                  "First payment",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 14,
+                    color: Color(0xff000000),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+                child: TextField(
+                  controller: TextEditingController(),
+                  obscureText: false,
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 14,
+                    color: Color(0xff000000),
+                  ),
+                  decoration: InputDecoration(
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          BorderSide(color: Color(0x00000000), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          BorderSide(color: Color(0x00000000), width: 1),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:
+                          BorderSide(color: Color(0x00000000), width: 1),
+                    ),
+                    hintText: "e.g. yyyy-MM-DD",
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 14,
+                      color: Color(0xff000000),
+                    ),
+                    filled: true,
+                    fillColor: Color(0xfff2f2f4),
+                    isDense: false,
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                child: Text(
+                  "Payment method",
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.normal,
+                    fontSize: 14,
+                    color: Color(0xff000000),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 0),
                 child: TextField(
                   controller: TextEditingController(),
                   obscureText: false,
@@ -213,7 +376,7 @@ class AddIncomeScreen extends StatelessWidget {
                       borderSide:
                           BorderSide(color: Color(0x00000000), width: 1),
                     ),
-                    hintText: "e.g. dd/MM/yyyy",
+                    hintText: "e.g. Credit Card",
                     hintStyle: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
@@ -230,132 +393,16 @@ class AddIncomeScreen extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Text(
-                  "Valor da Renda",
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 16),
-                child: TextField(
-                  controller: TextEditingController(),
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    hintText: "e.g. R\$: 0.00",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
-                    filled: true,
-                    fillColor: Color(0xfff2f2f4),
-                    isDense: false,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
-                child: Text(
-                  "Número de periodicidade",
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                child: TextField(
-                  controller: TextEditingController(),
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    hintText: "e.g. 346",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
-                    filled: true,
-                    fillColor: Color(0xfff2f2f4),
-                    isDense: false,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, paddingBottom, 0, 0),
                 child: MaterialButton(
                   onPressed: () {},
-                  color: Color(0xFF4193F3),
+                  color: Color(0xff000000),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   padding: EdgeInsets.all(16),
                   child: Text(
-                    "Salvar",
+                    "Save",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,

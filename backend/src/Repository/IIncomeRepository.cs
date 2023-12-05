@@ -6,6 +6,7 @@ namespace UnderPantsApp.Repository
     {
         Task<bool> SaveChangesAsync();
         Task DeleteIncomeAsync(Income income);
+        Task<IEnumerable<Income>> GetIncomesAsync();
         Task<Income?> GetIncomeAsync(int incomeId);
         Task RegisterIncomeAsync(Income income);
     }

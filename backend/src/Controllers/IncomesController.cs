@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UnderPantsApp.Entity;
 using UnderPantsApp.Models.Income;
+using UnderPantsApp.Models.User;
 using UnderPantsApp.Repository;
 
 namespace UnderPantsApp.Controllers
@@ -18,6 +19,17 @@ namespace UnderPantsApp.Controllers
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _incomeRepository = incomeRepository ?? throw new ArgumentNullException(nameof(incomeRepository));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Income>>> GetIncomes()
+        {
+            var incomeEntity = await _incomeRepository.GetIncomesAsync();
+
+            if(!incomeEntity.Any())
+                return NotFound("Não há nenhuma renda cadastrada.");
+
+            return Ok(_mapper.Map<IEnumerable<IncomeModel>>(incomeEntity));
         }
 
         [HttpPost]
