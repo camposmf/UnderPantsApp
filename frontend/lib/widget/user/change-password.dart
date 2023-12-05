@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
-class ChangePasswordScreen extends StatelessWidget {
+class ChangePasswordScreen extends StatefulWidget {
+  @override
+  _ChangePasswordScreenState createState() => _ChangePasswordScreenState();
+}
+
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController repeatPasswordController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,93 +25,57 @@ class ChangePasswordScreen extends StatelessWidget {
           borderRadius: BorderRadius.zero,
         ),
         leading: InkWell(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: Color(0xff212435),
-              size: 24,
-            ),
-        )
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Color(0xff212435),
+            size: 24,
+          ),
+        ),
       ),
       body: Align(
         alignment: Alignment.center,
         child: Padding(
           padding: EdgeInsets.fromLTRB(16, 50, 16, 16),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  height: 90,
-                  width: 90,
-                  child: Image.asset('assets/underpants.png'),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 8, 0, 30),
-                  child: Text(
-                    "Change Password",
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 20,
-                      color: Color(0xff000000),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    height: 90,
+                    width: 90,
+                    child: Image.asset('assets/img_home.png'),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 8, 0, 30),
+                    child: Text(
+                      "Recuperar senha",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20,
+                        color: Color(0xff000000),
+                      ),
                     ),
                   ),
-                ),
-                TextField(
-                  controller: TextEditingController(),
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    hintText: "Username",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff9f9d9d),
-                    ),
-                    filled: true,
-                    fillColor: Color(0xfff2f2f3),
-                    isDense: false,
-                    contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    suffixIcon: Icon(Icons.visibility,
-                        color: Color(0xff9f9d9d), size: 24),
-                  ),
-                ),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 0),
-                  child: TextField(
-                    controller: TextEditingController(),
+                  TextFormField(
+                    controller: emailController,
                     obscureText: false,
                     textAlign: TextAlign.start,
                     maxLines: 1,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo Obrigatório';
+                      }
+                      return null;
+                    },
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
@@ -108,22 +83,7 @@ class ChangePasswordScreen extends StatelessWidget {
                       color: Color(0xff000000),
                     ),
                     decoration: InputDecoration(
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      hintText: "New Password",
+                      hintText: "Email",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -139,75 +99,114 @@ class ChangePasswordScreen extends StatelessWidget {
                           color: Color(0xff9f9d9d), size: 24),
                     ),
                   ),
-                ),
-                TextField(
-                  controller: TextEditingController(),
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+                    child: TextFormField(
+                      controller: newPasswordController,
+                      obscureText: false,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Obrigatório';
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14,
+                        color: Color(0xff000000),
+                      ),
+                      decoration: InputDecoration(
+                        hintText: "Nova senha",
+                        hintStyle: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14,
+                          color: Color(0xff9f9d9d),
+                        ),
+                        filled: true,
+                        fillColor: Color(0xfff2f2f3),
+                        isDense: false,
+                        contentPadding:
+                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        suffixIcon: Icon(Icons.visibility,
+                            color: Color(0xff9f9d9d), size: 24),
+                      ),
+                    ),
                   ),
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide: BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    hintText: "Repeat Password",
-                    hintStyle: TextStyle(
+                  TextFormField(
+                    controller: repeatPasswordController,
+                    obscureText: false,
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo Obrigatório';
+                      }
+                      return null;
+                    },
+                    style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
                       fontSize: 14,
-                      color: Color(0xff9f9d9d),
+                      color: Color(0xff000000),
                     ),
-                    filled: true,
-                    fillColor: Color(0xfff2f2f3),
-                    isDense: false,
-                    contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    suffixIcon: Icon(Icons.visibility,
-                        color: Color(0xff9f9d9d), size: 24),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: MaterialButton(
-                    onPressed: () {},
-                    color: Color(0xffff5630),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      "Continue",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                    decoration: InputDecoration(
+                      hintText: "Repita sua senha",
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
+                        fontSize: 14,
+                        color: Color(0xff9f9d9d),
                       ),
+                      filled: true,
+                      fillColor: Color(0xfff2f2f3),
+                      isDense: false,
+                      contentPadding:
+                      EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      suffixIcon: Icon(Icons.visibility,
+                          color: Color(0xff9f9d9d), size: 24),
                     ),
-                    textColor: Color(0xffffffff),
-                    height: 50,
-                    minWidth: MediaQuery.of(context).size.width,
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    child: MaterialButton(
+                      onPressed: () {
+                        _submitForm();
+                      },
+                      color: Color(0xffff5630),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        "Recuperar",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
+                      textColor: Color(0xffffffff),
+                      height: 50,
+                      minWidth: MediaQuery.of(context).size.width,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        )
+        ),
       ),
     );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      // Lógica para recuperar senha
+    }
   }
 }

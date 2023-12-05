@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/widget/user/login.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,279 +22,216 @@ class RegisterScreen extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.fromLTRB(16, 50, 16, 16),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  height: 90,
-                  width: 90,
-                  child: Image.asset('assets/underpants.png'),
-                ),
-                Text(
-                  "Create new",
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 24,
-                    color: Color(0xff000000),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    height: 90,
+                    width: 90,
+                    child: Image.asset('assets/img_home.png'),
                   ),
-                ),
-                Text(
-                  "account",
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.clip,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 24,
-                    color: Color(0xff000000),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 16),
-                  child: TextField(
-                    controller: TextEditingController(text: "Robert"),
-                    obscureText: false,
+                  Text(
+                    "Cria uma nova",
                     textAlign: TextAlign.start,
-                    maxLines: 1,
+                    overflow: TextOverflow.clip,
                     style: TextStyle(
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w700,
                       fontStyle: FontStyle.normal,
-                      fontSize: 14,
+                      fontSize: 24,
                       color: Color(0xff000000),
                     ),
-                    decoration: InputDecoration(
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      hintText: "Name",
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 14,
-                        color: Color(0xff9f9d9d),
-                      ),
-                      filled: true,
-                      fillColor: Color(0xfff2f2f3),
-                      isDense: false,
-                      contentPadding:
-                      EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    ),
                   ),
-                ),
-                TextField(
-                  controller: TextEditingController(),
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                      BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                      BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                      BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    hintText: "Email Address",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff9f9d9d),
-                    ),
-                    filled: true,
-                    fillColor: Color(0xfff2f2f3),
-                    isDense: false,
-                    contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 0),
-                  child: TextField(
-                    controller: TextEditingController(),
-                    obscureText: false,
+                  Text(
+                    "conta",
                     textAlign: TextAlign.start,
-                    maxLines: 1,
+                    overflow: TextOverflow.clip,
                     style: TextStyle(
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w700,
                       fontStyle: FontStyle.normal,
-                      fontSize: 14,
+                      fontSize: 24,
                       color: Color(0xff000000),
                     ),
-                    decoration: InputDecoration(
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide:
-                        BorderSide(color: Color(0x00ffffff), width: 1),
-                      ),
-                      hintText: "Phone Number",
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 14,
-                        color: Color(0xff9f9d9d),
-                      ),
-                      filled: true,
-                      fillColor: Color(0xfff2f2f3),
-                      isDense: false,
-                      contentPadding:
-                      EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    ),
                   ),
-                ),
-                TextField(
-                  controller: TextEditingController(),
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                      BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                      BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                      BorderSide(color: Color(0x00ffffff), width: 1),
-                    ),
-                    hintText: "Password",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff9f9d9d),
-                    ),
-                    filled: true,
-                    fillColor: Color(0xfff2f2f3),
-                    isDense: false,
-                    contentPadding:
-                    EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    suffixIcon: Icon(Icons.visibility,
-                        color: Color(0xff9f9d9d), size: 20),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 30, 0, 16),
-                  child: MaterialButton(
-                    onPressed: () {},
-                    color: Color(0xffff5630),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    padding: EdgeInsets.all(16),
-                    child: Text(
-                      "Button",
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 30, 0, 16),
+                    child: TextFormField(
+                      controller: nameController,
+                      obscureText: false,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Obrigatório';
+                        }
+                        return null;
+                      },
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
+                        fontSize: 14,
+                        color: Color(0xff000000),
+                      ),
+                      decoration: InputDecoration(
+                        hintText: 'Nome',
+                        // rest of your InputDecoration code
                       ),
                     ),
-                    textColor: Color(0xffffffff),
-                    height: 50,
-                    minWidth: MediaQuery.of(context).size.width,
                   ),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Have an account?",
-                        textAlign: TextAlign.start,
-                        overflow: TextOverflow.clip,
+                  TextFormField(
+                    controller: emailController,
+                    obscureText: false,
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo Obrigatório';
+                      }
+                      return null;
+                    },
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 14,
+                      color: Color(0xff000000),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      // rest of your InputDecoration code
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+                    child: TextFormField(
+                      controller: phoneNumberController,
+                      obscureText: false,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Obrigatório';
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14,
+                        color: Color(0xff000000),
+                      ),
+                      decoration: InputDecoration(
+                        hintText: 'Número de telefone',
+                        // rest of your InputDecoration code
+                      ),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo Obrigatório';
+                      }
+                      return null;
+                    },
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 14,
+                      color: Color(0xff000000),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Senha',
+                      // rest of your InputDecoration code
+                      suffixIcon: Icon(
+                        Icons.visibility,
+                        color: Color(0xff9f9d9d),
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 30, 0, 16),
+                    child: MaterialButton(
+                      onPressed: () {
+                        _submitForm();
+                      },
+                      color: Color(0xffff5630),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        "Cadastrar",
                         style: TextStyle(
-                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
                           fontStyle: FontStyle.normal,
-                          fontSize: 14,
-                          color: Color(0xff000000),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
-                        child: InkWell(
-                          onTap: (){
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            "SignIn",
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontStyle: FontStyle.normal,
-                              fontSize: 14,
-                              color: Color(0xffff5630),
+                      textColor: Color(0xffffffff),
+                      height: 50,
+                      minWidth: MediaQuery.of(context).size.width,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Já possui uma conta?",
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14,
+                            color: Color(0xff000000),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Entrar",
+                              textAlign: TextAlign.start,
+                              overflow: TextOverflow.clip,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontStyle: FontStyle.normal,
+                                fontSize: 14,
+                                color: Color(0xffff5630),
+                              ),
                             ),
                           ),
                         ),
-
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState?.validate() ?? false) {
+      // Form is valid, proceed with registration logic
+    }
   }
 }
