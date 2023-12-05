@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
           borderRadius: BorderRadius.zero,
         ),
         title: Text(
-          "UndesPants Group",
+          "Bolso Inteligente",
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontStyle: FontStyle.normal,
@@ -87,11 +87,10 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.max,
                               ),
-                              ImageIcon(
-                                NetworkImage(
-                                    "https://cdn4.iconfinder.com/data/icons/xicons/25/xicons_about_book-128.png"),
-                                size: 80,
-                                color: Color(0xffd46d24),
+                              Container(
+                                height: 90,
+                                width: 90,
+                                child: Image.asset('assets/img_despesas.png'),
                               ),
                               Text(
                                 "Controle de Despesas",
@@ -136,11 +135,10 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              ImageIcon(
-                                NetworkImage(
-                                    "https://cdn4.iconfinder.com/data/icons/xicons/25/xicons_about_book-128.png"),
-                                size: 80,
-                                color: Color(0xff3a57e8),
+                              Container(
+                                height: 90,
+                                width: 90,
+                                child: Image.asset('assets/img_renda.png'),
                               ),
                               Text(
                                 "Controle de Renda",
@@ -185,11 +183,10 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              ImageIcon(
-                                NetworkImage(
-                                    "https://cdn4.iconfinder.com/data/icons/xicons/25/xicons_about_book-128.png"),
-                                size: 80,
-                                color: Color(0xffe4c00d),
+                              Container(
+                                height: 90,
+                                width: 90,
+                                child: Image.asset('assets/img_metas.png'),
                               ),
                               Text(
                                 "Metas e Ganhos",
@@ -228,11 +225,10 @@ class HomeScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.max,
                               ),
-                              ImageIcon(
-                                NetworkImage(
-                                    "https://cdn4.iconfinder.com/data/icons/xicons/25/xicons_about_book-128.png"),
-                                size: 80,
-                                color: Color(0xffd46d24),
+                              Container(
+                                height: 90,
+                                width: 90,
+                                child: Image.asset('assets/img_historico_financeiro.png'),
                               ),
                               Text(
                                 "Histórico Financeiro",
