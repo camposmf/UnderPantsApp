@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UnderPantsApp.DbContexts;
 
@@ -10,9 +11,11 @@ using UnderPantsApp.DbContexts;
 namespace UnderPantsApp.Migrations
 {
     [DbContext(typeof(UnderPantsContext))]
-    partial class UnderPantsContextModelSnapshot : ModelSnapshot
+    [Migration("20231206094936_ExpenseNewColumns")]
+    partial class ExpenseNewColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
@@ -55,14 +58,6 @@ namespace UnderPantsApp.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PeriodicityNumber")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

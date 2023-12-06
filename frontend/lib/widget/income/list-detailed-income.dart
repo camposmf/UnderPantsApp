@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controller/income_controller.dart';
 
 import '../../models/income.dart';
+import 'add-income.dart';
+import 'list-income.dart';
 
-class ListDetailedIncomeScreen extends StatelessWidget {
-
+class ListDetailedIncomeScreen extends StatefulWidget {
   final Income income;
   ListDetailedIncomeScreen({Key? key, required this.income}) : super(key: key);
 
-  // Função auxiliar para criar os textos
+  @override
+  State<ListDetailedIncomeScreen> createState() => _ListDetailedIncomeScreenState();
+}
+
+class _ListDetailedIncomeScreenState extends State<ListDetailedIncomeScreen> {
+
   Widget buildText(String text, FontWeight fontWeight, double fontSize) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
@@ -24,7 +31,6 @@ class ListDetailedIncomeScreen extends StatelessWidget {
     );
   }
 
-// Função auxiliar para criar a linha divisória
   Widget buildDivider() {
     return Divider(
       color: Color(0xffd7d7d7),
@@ -37,11 +43,11 @@ class ListDetailedIncomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productName = income.name;
-    final productDate = income.date;
-    final productAmount = income.amount;
-    final productDescription = income.description;
-    final productPeriodicityNumber = income.periodicityNumber;
+    final productName = widget.income.name;
+    final productDate = widget.income.date;
+    final productAmount = widget.income.amount;
+    final productDescription = widget.income.description;
+    final productPeriodicityNumber = widget.income.periodicityNumber;
 
     return Scaffold(
       backgroundColor: Color(0xffffffff),
@@ -64,7 +70,13 @@ class ListDetailedIncomeScreen extends StatelessWidget {
         ),
         leading: InkWell(
           onTap: () {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ListIncomeScreen()
+              ),
+            );
           },
           child: Icon(
             Icons.arrow_back,
@@ -131,12 +143,27 @@ class ListDetailedIncomeScreen extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.edit),
                       color: Colors.orange,
-                      onPressed: () {},
+                      onPressed: () {
+
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddIncomeScreen(income: widget.income)),
+                        );
+                      },
                     ),
                     IconButton(
                       icon: Icon(Icons.delete),
                       color: Colors.red,
-                      onPressed: () {},
+                      onPressed: () async {
+                        int incomeId = widget.income.id?.toInt() ?? 0;
+                        await deleteIncome(incomeId);
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ListIncomeScreen()),
+                        );
+                      },
                     ),
                   ],
                 ),

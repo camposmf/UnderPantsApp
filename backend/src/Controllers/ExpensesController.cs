@@ -20,6 +20,17 @@ namespace UnderPantsApp.Controllers
             _expenseRepository = expenseRepository ?? throw new ArgumentNullException(nameof(expenseRepository));
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
+        {
+            var expenseEntity = await _expenseRepository.GetExpensesAsync();
+
+            if (!expenseEntity.Any())
+                return NotFound("Não há nenhuma despesa cadastrada.");
+
+            return Ok(_mapper.Map<IEnumerable<ExpenseModel>>(expenseEntity));
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> RegisterExpense(ExpenseForCreationModel expense)

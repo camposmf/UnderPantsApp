@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widget/expense/list-expense.dart';
+import 'package:frontend/widget/home.dart';
 import 'package:frontend/widget/user/login.dart';
 
 void main() {
@@ -11,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Bolso Inteligente",
-      home: SplashScreen(),
+      //home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }

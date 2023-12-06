@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/controller/income_controller.dart';
 
-class AddIncomeScreen extends StatelessWidget {
+import 'list-income.dart';
+import 'list-detailed-income.dart';
+import '../../models/income.dart';
+
+class AddIncomeScreen extends StatefulWidget {
+  final Income? income;
+  AddIncomeScreen({Key? key, this.income = null}) : super(key: key);
+  @override
+  State<AddIncomeScreen> createState() => _AddIncomeScreenState();
+}
+
+class _AddIncomeScreenState extends State<AddIncomeScreen> {
   double paddingBottom = 20;
 
   final TextEditingController nameController = TextEditingController();
@@ -11,6 +23,21 @@ class AddIncomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    if (widget.income == null) {
+      nameController.text = "";
+      dateController.text = "";
+      amountController.text = "";
+      descriptionController.text = "";
+      periodicityController.text = "";
+    } else {
+      nameController.text = widget.income?.name ?? "";
+      dateController.text = widget.income?.date ?? "";
+      descriptionController.text = widget.income?.description ?? "";
+      amountController.text = widget.income?.amount.toString() ?? "";
+      periodicityController.text = widget.income?.periodicityNumber.toString() ?? "";
+    }
+
     return Scaffold(
       backgroundColor: Color(0xffffffff),
       appBar: AppBar(
@@ -22,7 +49,7 @@ class AddIncomeScreen extends StatelessWidget {
           borderRadius: BorderRadius.zero,
         ),
         title: Text(
-          "Adicionar Renda",
+          widget.income == null ? "Adicionar Renda" : "Alterar Renda",
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontStyle: FontStyle.normal,
@@ -71,7 +98,7 @@ class AddIncomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, paddingBottom),
                 child: TextField(
-                  controller: TextEditingController(),
+                  controller: nameController,
                   obscureText: false,
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -129,7 +156,7 @@ class AddIncomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, paddingBottom),
                 child: TextField(
-                  controller: TextEditingController(),
+                  controller: descriptionController,
                   obscureText: false,
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -187,7 +214,7 @@ class AddIncomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 16),
                 child: TextField(
-                  controller: TextEditingController(),
+                  controller: dateController,
                   obscureText: false,
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -245,7 +272,7 @@ class AddIncomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 16),
                 child: TextField(
-                  controller: TextEditingController(),
+                  controller: amountController,
                   obscureText: false,
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -303,7 +330,7 @@ class AddIncomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 10),
                 child: TextField(
-                  controller: TextEditingController(),
+                  controller: periodicityController,
                   obscureText: false,
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -347,7 +374,49 @@ class AddIncomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(0, paddingBottom, 0, 0),
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () async {
+
+                    String name = nameController.text;
+                    String date = dateController.text;
+                    String description = descriptionController.text;
+                    double amount = double.parse(amountController.text);
+                    int periodicityNumber = int.parse(periodicityController.text);
+
+                    Income objIncome = Income(
+                      name,
+                      date,
+                      amount,
+                      description,
+                      periodicityNumber
+                    );
+
+                    try {
+
+                      // Create new income
+                      if(widget.income == null){
+                        await createIncome(objIncome);
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ListIncomeScreen()),
+                        );
+                      }
+                      // Update income
+                      else {
+                        int incomeId = widget.income?.id ?? 0;
+                        await editIncome(incomeId, objIncome);
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ListDetailedIncomeScreen(income: objIncome)
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      print('Erro durante o Income: $e');
+                    }
+                  },
                   color: Color(0xFF4193F3),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
@@ -355,7 +424,7 @@ class AddIncomeScreen extends StatelessWidget {
                   ),
                   padding: EdgeInsets.all(16),
                   child: Text(
-                    "Salvar",
+                    widget.income == null ? "Salvar" : "Alterar",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,

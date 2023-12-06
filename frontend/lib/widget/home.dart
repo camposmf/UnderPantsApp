@@ -59,13 +59,6 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Minhas Metas'),
-              selected: _selectedIndex == 1,
-              onTap: () {
-                _navigateTo(context, 1);
-              },
-            ),
-            ListTile(
               title: const Text('Minhas Rendas'),
               selected: _selectedIndex == 2,
               onTap: () {
@@ -78,6 +71,20 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 _navigateTo(context, 3);
               },
+            ),
+            ListTile(
+              title: Text(
+                'Minhas Metas (Em Dev)',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+
+              // title: const Text('Minhas Metas'),
+              // selected: _selectedIndex == 1,
+              // onTap: _selectedIndex == 1 ? null : () {
+              //   _navigateTo(context, 1);
+              // },
             ),
             Divider(height: 200),
             ListTile(

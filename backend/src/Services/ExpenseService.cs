@@ -27,6 +27,11 @@ namespace UnderPantsApp.Services
                                           .FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Expense>> GetExpensesAsync()
+        {
+            return await _context.Expenses.ToListAsync();
+        }
+
         public async Task RegisterExpenseAsync(Expense expense)
         {
             _context.Expenses.Add(expense);
