@@ -12,6 +12,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool obscureTextNewPassword = true;
+  bool obscureTextRepeatPassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +51,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    height: 90,
-                    width: 90,
-                    child: Image.asset('assets/img_home.png'),
+                    height: 120,
+                    width: 120,
+                    child: Image.asset('assets/img.png'),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 8, 0, 30),
@@ -60,7 +63,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontStyle: FontStyle.normal,
-                        fontSize: 20,
+                        fontSize: 30,
                         color: Color(0xff000000),
                       ),
                     ),
@@ -95,15 +98,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       isDense: false,
                       contentPadding:
                       EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                      suffixIcon: Icon(Icons.visibility,
-                          color: Color(0xff9f9d9d), size: 24),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 0),
                     child: TextFormField(
                       controller: newPasswordController,
-                      obscureText: false,
+                      obscureText: obscureTextNewPassword,
                       textAlign: TextAlign.start,
                       maxLines: 1,
                       validator: (value) {
@@ -131,14 +132,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         isDense: false,
                         contentPadding:
                         EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                        suffixIcon: Icon(Icons.visibility,
-                            color: Color(0xff9f9d9d), size: 24),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            setState(() {
+                              obscureTextNewPassword =
+                              !obscureTextNewPassword;
+                            });
+                          },
+                          child: Icon(
+                            obscureTextNewPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Color(0xff9f9d9d),
+                            size: 24,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                   TextFormField(
                     controller: repeatPasswordController,
-                    obscureText: false,
+                    obscureText: obscureTextRepeatPassword,
                     textAlign: TextAlign.start,
                     maxLines: 1,
                     validator: (value) {
@@ -166,8 +180,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       isDense: false,
                       contentPadding:
                       EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                      suffixIcon: Icon(Icons.visibility,
-                          color: Color(0xff9f9d9d), size: 24),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            obscureTextRepeatPassword =
+                            !obscureTextRepeatPassword;
+                          });
+                        },
+                        child: Icon(
+                          obscureTextRepeatPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Color(0xff9f9d9d),
+                          size: 24,
+                        ),
+                      ),
                     ),
                   ),
                   Padding(
@@ -176,7 +203,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       onPressed: () {
                         _submitForm();
                       },
-                      color: Color(0xffff5630),
+                      color: Color(0xFF53A1F5),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
@@ -206,7 +233,38 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
-      // Lógica para recuperar senha
+      if (newPasswordController.text != repeatPasswordController.text) {
+        // Senhas não correspondem, exibe uma mensagem de erro
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('As senhas não correspondem'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      } else {
+        // Lógica para recuperar senha
+        _showSuccessDialog();
+      }
     }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Email para recuperar senha enviado com sucesso!!"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

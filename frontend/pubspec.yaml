@@ -65,6 +65,8 @@ flutter:
     - assets/img_metas.png
     - assets/img_renda.png
     - assets/img_historico_financeiro.png
+    - assets/img.png
+    - assets/img_main.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

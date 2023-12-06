@@ -32,9 +32,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    height: 90,
-                    width: 90,
-                    child: Image.asset('assets/img_home.png'),
+                    height: 120,
+                    width: 120,
+                    child: Image.asset('assets/img.png'),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(0, 8, 0, 30),
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontStyle: FontStyle.normal,
-                        fontSize: 20,
+                        fontSize: 30,
                         color: Color(0xff000000),
                       ),
                     ),
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         _submitForm();
                       },
-                      color: Color(0xffff5630),
+                      color: Color(0xFF53A1F5),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
@@ -192,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.w700,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 14,
-                                color: Color(0xffff5630),
+                                color: Color(0xFF53A1F5),
                               ),
                             ),
                           ),

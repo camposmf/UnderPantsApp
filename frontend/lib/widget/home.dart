@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("UndesPants Group"),
-        backgroundColor: Color(0xFF4193F3),
+        backgroundColor: Color(0xFF53A1F5),
         elevation: 4,
         centerTitle: false,
         shape: RoundedRectangleBorder(
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                 accountEmail: Text("marcos@teste.com"),
                 currentAccountPicture: Image.asset('assets/underpants.png'),
                 decoration: BoxDecoration(
-                  color: Color(0xFF4193F3),
+                  color: Color(0xFF53A1F5),
                 )),
             ListTile(
               title: const Text('Home'),
