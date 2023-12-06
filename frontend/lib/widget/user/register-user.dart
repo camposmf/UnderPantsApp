@@ -13,6 +13,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool obscureTextPassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +32,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    height: 90,
-                    width: 90,
-                    child: Image.asset('assets/img_home.png'),
+                    height: 120,
+                    width: 120,
+                    child: Image.asset('assets/img.png'),
                   ),
                   Text(
                     "Cria uma nova",
@@ -41,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontStyle: FontStyle.normal,
-                      fontSize: 24,
+                      fontSize: 30,
                       color: Color(0xff000000),
                     ),
                   ),
@@ -52,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontStyle: FontStyle.normal,
-                      fontSize: 24,
+                      fontSize: 30,
                       color: Color(0xff000000),
                     ),
                   ),
@@ -130,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextFormField(
                     controller: passwordController,
-                    obscureText: true,
+                    obscureText: obscureTextPassword,
                     textAlign: TextAlign.start,
                     maxLines: 1,
                     validator: (value) {
@@ -148,10 +150,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     decoration: InputDecoration(
                       hintText: 'Senha',
                       // rest of your InputDecoration code
-                      suffixIcon: Icon(
-                        Icons.visibility,
-                        color: Color(0xff9f9d9d),
-                        size: 20,
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            obscureTextPassword = !obscureTextPassword;
+                          });
+                        },
+                        child: Icon(
+                          obscureTextPassword
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Color(0xff9f9d9d),
+                          size: 20,
+                        ),
                       ),
                     ),
                   ),
@@ -161,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onPressed: () {
                         _submitForm();
                       },
-                      color: Color(0xffff5630),
+                      color: Color(0xFF53A1F5),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
@@ -212,7 +223,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 fontWeight: FontWeight.w700,
                                 fontStyle: FontStyle.normal,
                                 fontSize: 14,
-                                color: Color(0xffff5630),
+                                color: Color(0xFF53A1F5),
                               ),
                             ),
                           ),
@@ -231,7 +242,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
-      // Form is valid, proceed with registration logic
+      // Simulando o processo de cadastro bem-sucedido
+      _showSuccessDialog();
     }
+  }
+
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Usuário cadastrado com sucesso"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o AlertDialog
+                Navigator.of(context).pop(); // Fecha a tela de cadastro
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
