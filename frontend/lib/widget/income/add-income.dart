@@ -17,26 +17,31 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
+  DateTime? selectedDate;
   final TextEditingController amountController = TextEditingController();
   final TextEditingController periodicityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-
     if (widget.income == null) {
       nameController.text = "";
-      dateController.text = "";
       amountController.text = "";
       descriptionController.text = "";
       periodicityController.text = "";
     } else {
       nameController.text = widget.income?.name ?? "";
-      dateController.text = widget.income?.date ?? "";
       descriptionController.text = widget.income?.description ?? "";
       amountController.text = widget.income?.amount.toString() ?? "";
-      periodicityController.text = widget.income?.periodicityNumber.toString() ?? "";
+      periodicityController.text =
+          widget.income?.periodicityNumber.toString() ?? "";
+      selectedDate = DateTime.parse(widget.income?.date ?? "");
     }
+
+    // Check if selectedDate is null, and set it to the current date
+    selectedDate ??= DateTime.now();
+
+    int daysUntilNow =
+        DateTime.now().difference(DateTime(DateTime.now().year, 1, 1)).inDays;
 
     return Scaffold(
       backgroundColor: Color(0xffffffff),
@@ -76,11 +81,6 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                margin: EdgeInsets.all(0),
-                padding: EdgeInsets.all(0),
-                width: MediaQuery.of(context).size.width,
-              ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: Text(
@@ -111,18 +111,15 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                   decoration: InputDecoration(
                     disabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     hintText: "e.g. Netflix",
                     hintStyle: TextStyle(
@@ -135,7 +132,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                     fillColor: Color(0xfff2f2f4),
                     isDense: false,
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   ),
                 ),
               ),
@@ -169,18 +166,15 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                   decoration: InputDecoration(
                     disabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     hintText: "e.g. Plano Prêmio",
                     hintStyle: TextStyle(
@@ -193,7 +187,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                     fillColor: Color(0xfff2f2f4),
                     isDense: false,
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   ),
                 ),
               ),
@@ -201,7 +195,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: Text(
                   "Data de Renda",
-                  textAlign: TextAlign.start,
+                  textAlign: TextAlign.center,
                   overflow: TextOverflow.clip,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -211,49 +205,37 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 16),
-                child: TextField(
-                  controller: dateController,
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      DateTime? date = await showDatePicker(
+                        context: context,
+                        initialDate: selectedDate!,
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2101),
+                      );
+
+                      if (date != null) {
+                        setState(() {
+                          selectedDate = date;
+                        });
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF4193F3),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        _formatDate(selectedDate!),
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
                   ),
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    hintText: "e.g. dd/MM/yyyy",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
-                    filled: true,
-                    fillColor: Color(0xfff2f2f4),
-                    isDense: false,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  ),
-                ),
+                  SizedBox(height: 8),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
@@ -285,18 +267,15 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                   decoration: InputDecoration(
                     disabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                      borderSide: BorderSide(color: Color(0x00000000), width: 1),
                     ),
                     hintText: "e.g. R\$: 0.00",
                     hintStyle: TextStyle(
@@ -309,7 +288,7 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                     fillColor: Color(0xfff2f2f4),
                     isDense: false,
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   ),
                 ),
               ),
@@ -329,76 +308,90 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                child: TextField(
-                  controller: periodicityController,
-                  obscureText: false,
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
-                  decoration: InputDecoration(
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: periodicityController,
+                        obscureText: false,
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14,
+                          color: Color(0xff000000),
+                        ),
+                        decoration: InputDecoration(
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide:
+                            BorderSide(color: Color(0x00000000), width: 1),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide:
+                            BorderSide(color: Color(0x00000000), width: 1),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide:
+                            BorderSide(color: Color(0x00000000), width: 1),
+                          ),
+                          //hintText: "e.g. 346",
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                            fontSize: 14,
+                            color: Color(0xff000000),
+                          ),
+                          filled: true,
+                          fillColor: Color(0xfff2f2f4),
+                          isDense: false,
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 12),
+                        ),
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
+                    SizedBox(width: 8),
+                    Text(
+                      "Dias até hoje: $daysUntilNow",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff000000),
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide:
-                          BorderSide(color: Color(0x00000000), width: 1),
-                    ),
-                    hintText: "e.g. 346",
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
-                    filled: true,
-                    fillColor: Color(0xfff2f2f4),
-                    isDense: false,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  ),
+                  ],
                 ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, paddingBottom, 0, 0),
                 child: MaterialButton(
                   onPressed: () async {
-
                     String name = nameController.text;
-                    String date = dateController.text;
                     String description = descriptionController.text;
                     double amount = double.parse(amountController.text);
-                    int periodicityNumber = int.parse(periodicityController.text);
+                    int periodicityNumber =
+                    int.parse(periodicityController.text);
 
                     Income objIncome = Income(
                       name,
-                      date,
+                      _formatDate(selectedDate!),
                       amount,
                       description,
-                      periodicityNumber
+                      periodicityNumber,
                     );
 
                     try {
-
                       // Create new income
-                      if(widget.income == null){
+                      if (widget.income == null) {
                         await createIncome(objIncome);
                         Navigator.pop(context);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ListIncomeScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => ListIncomeScreen()),
                         );
                       }
                       // Update income
@@ -409,8 +402,8 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ListDetailedIncomeScreen(income: objIncome)
-                          ),
+                              builder: (context) =>
+                                  ListDetailedIncomeScreen(income: objIncome)),
                         );
                       }
                     } catch (e) {
@@ -441,5 +434,9 @@ class _AddIncomeScreenState extends State<AddIncomeScreen> {
         ),
       ),
     );
+  }
+
+  String _formatDate(DateTime date) {
+    return "${date.day}/${date.month}/${date.year}";
   }
 }

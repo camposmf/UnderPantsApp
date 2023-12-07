@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widget/home.dart';
+import 'package:frontend/widget/income/add-income.dart';
 import 'package:frontend/widget/user/login.dart';
 
 void main() {
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Adicione a lógica de espera de 5 segundos aqui antes de navegar para a tela de login
     Future.delayed(Duration(seconds: 5), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute(builder: (context) => AddIncomeScreen()),
       );
     });
   }
@@ -45,15 +46,16 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               "Bolso Inteligente",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 32,
+                color: Color(0xFF53A1F5),
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
               "Das despesas aos investimentos",
               style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
+                fontSize: 24,
+                color: Color(0xFF53A1F5),
               ),
             ),
             SizedBox(height: 20),
