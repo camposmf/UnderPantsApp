@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/widget/saving-goal/list-saving-goal.dart';
 import 'package:frontend/widget/user/login.dart';
 import 'expense/list-expense.dart';
+import 'financial-history/list-finance.dart';
 import 'income/list-income.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,9 +12,10 @@ class HomeScreen extends StatelessWidget {
 
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    ListSavingGoalScreen(),
     ListIncomeScreen(),
     ListExpenseScreen(),
+    ListFinanceScreen(),
+    ListSavingGoalScreen(),
     LoginScreen()
   ];
 
@@ -60,18 +62,27 @@ class HomeScreen extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Minhas Rendas'),
+              selected: _selectedIndex == 1,
+              onTap: () {
+                _navigateTo(context, 1);
+              },
+            ),
+            ListTile(
+              title: const Text('Minhas Despesas'),
               selected: _selectedIndex == 2,
               onTap: () {
                 _navigateTo(context, 2);
               },
             ),
+
             ListTile(
-              title: const Text('Minhas Despesas'),
+              title: const Text('Histórico financeiro'),
               selected: _selectedIndex == 3,
               onTap: () {
                 _navigateTo(context, 3);
               },
             ),
+
             ListTile(
               title: Text(
                 'Minhas Metas (Em Dev)',
@@ -89,9 +100,9 @@ class HomeScreen extends StatelessWidget {
             Divider(height: 200),
             ListTile(
               title: const Text('Logout'),
-              selected: _selectedIndex == 4,
+              selected: _selectedIndex == 5,
               onTap: () {
-                _navigateTo(context, 4);
+                _navigateTo(context, 5);
               },
             ),
           ],
