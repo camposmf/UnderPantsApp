@@ -1,22 +1,46 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatefulWidget {
+import '../../controller/user_controller.dart';
+import '../../models/user.dart';
+import 'login.dart';
+
+class CreateUserScreen extends StatefulWidget {
+  final User? user;
+  const CreateUserScreen({Key? key, this.user}) : super(key: key);
+
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _CreateUserScreenState createState() => _CreateUserScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _CreateUserScreenState extends State<CreateUserScreen> {
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController bornDateController = TextEditingController();
+  final TextEditingController cpfNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   bool obscureTextPassword = true;
 
   @override
   Widget build(BuildContext context) {
+    // if (widget.user == null) {
+    //   nameController.text = "";
+    //   emailController.text = "";
+    //   bornDateController.text = "";
+    //   cpfNumberController.text = "";
+    //   passwordController.text = "";
+    // } else {
+    //   nameController.text = widget.user?.name ?? "";
+    //   emailController.text = widget.user?.email ?? "";
+    //   bornDateController.text = widget.user?.bornDate ?? "";
+    //   cpfNumberController.text = widget.user?.cpfNumber ?? "";
+    //   passwordController.text = widget.user?.password ?? "";
+    // }
+
     return Scaffold(
       backgroundColor: Color(0xffffffff),
       body: Align(
@@ -37,7 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Image.asset('assets/img.png'),
                   ),
                   Text(
-                    "Cria uma nova",
+                    widget.user == null ? "Cria uma nova" : "Alterar uma",
                     textAlign: TextAlign.start,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
@@ -84,6 +108,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   TextFormField(
+                    controller: cpfNumberController,
+                    obscureText: false,
+                    textAlign: TextAlign.start,
+                    maxLines: 1,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo Obrigatório';
+                      }
+                      return null;
+                    },
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 14,
+                      color: Color(0xff000000),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Número CPF',
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+                    child: TextFormField(
+                      controller: bornDateController,
+                      obscureText: false,
+                      textAlign: TextAlign.start,
+                      maxLines: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo Obrigatório';
+                        }
+                        return null;
+                      },
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14,
+                        color: Color(0xff000000),
+                      ),
+                      decoration: InputDecoration(
+                        hintText: 'Data de Nascimento',
+                      ),
+                    ),
+                  ),
+                  TextFormField(
                     controller: emailController,
                     obscureText: false,
                     textAlign: TextAlign.start,
@@ -101,15 +170,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: Color(0xff000000),
                     ),
                     decoration: InputDecoration(
-                      hintText: 'Email',
-                      // rest of your InputDecoration code
+                      hintText: 'E-mail',
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 0),
                     child: TextFormField(
-                      controller: phoneNumberController,
-                      obscureText: false,
+                      controller: passwordController,
+                      obscureText: obscureTextPassword,
                       textAlign: TextAlign.start,
                       maxLines: 1,
                       validator: (value) {
@@ -125,43 +193,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: Color(0xff000000),
                       ),
                       decoration: InputDecoration(
-                        hintText: 'Número de telefone',
+                        hintText: 'Senha',
                         // rest of your InputDecoration code
-                      ),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: obscureTextPassword,
-                    textAlign: TextAlign.start,
-                    maxLines: 1,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Obrigatório';
-                      }
-                      return null;
-                    },
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: 14,
-                      color: Color(0xff000000),
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Senha',
-                      // rest of your InputDecoration code
-                      suffixIcon: InkWell(
-                        onTap: () {
-                          setState(() {
-                            obscureTextPassword = !obscureTextPassword;
-                          });
-                        },
-                        child: Icon(
-                          obscureTextPassword
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Color(0xff9f9d9d),
-                          size: 20,
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            setState(() {
+                              obscureTextPassword = !obscureTextPassword;
+                            });
+                          },
+                          child: Icon(
+                            obscureTextPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Color(0xff9f9d9d),
+                            size: 20,
+                          ),
                         ),
                       ),
                     ),
@@ -179,7 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       padding: EdgeInsets.all(16),
                       child: Text(
-                        "Cadastrar",
+                        widget.user == null ? "Cadastrar" : "Alterar",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -240,10 +286,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm() async {
+
     if (_formKey.currentState?.validate() ?? false) {
-      // Simulando o processo de cadastro bem-sucedido
-      _showSuccessDialog();
+
+      String name = nameController.text;
+      String bornDate = bornDateController.text;
+      String email = emailController.text;
+      String password = passwordController.text;
+      String cpfNumber = cpfNumberController.text;
+
+      User objUser = User(
+          name,
+          email,
+          password,
+          bornDate,
+          cpfNumber
+      );
+
+      try {
+        // Create new user
+        if (widget.user == null) {
+          await createUser(objUser);
+          _showSuccessDialog();
+        }
+        // Update income
+        else {
+          int userId = widget.user?.id ?? 0;
+          await editUser(userId, objUser);
+          _showSuccessDialog();
+        }
+      } catch (e) {
+        print('Erro durante o User: $e');
+      }
     }
   }
 
@@ -257,7 +332,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Fecha o AlertDialog
-                Navigator.of(context).pop(); // Fecha a tela de cadastro
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
               child: Text("OK"),
             ),

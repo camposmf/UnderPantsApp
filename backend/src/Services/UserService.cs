@@ -21,15 +21,9 @@ namespace UnderPantsApp.Services
             await SaveChangesAsync();
         }
 
-        public async Task DeleteUserAsync(User user)
+        public async Task<User?> GetLoginAsync(string email, string password)
         {
-            _context.Users.Remove(user);
-            await SaveChangesAsync();
-        }
-
-        public async Task<User?> GetLoginAsync(string login, string password)
-        {
-            return await _context.Users.Where(u => u.Login.Equals(login) && u.Password.Equals(password))
+            return await _context.Users.Where(u => u.Email.Equals(email) && u.Password.Equals(password))
                                        .FirstOrDefaultAsync();
         }
 
@@ -39,10 +33,10 @@ namespace UnderPantsApp.Services
                                        .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<User?> GetUserByCpf(string cpf)
         {
-            return await _context.Users
-                                 .ToListAsync();
+            return await _context.Users.Where(u => u.CpfNumber.Equals(cpf))
+                                       .FirstOrDefaultAsync();
         }
 
         public async Task<bool> SaveChangesAsync()

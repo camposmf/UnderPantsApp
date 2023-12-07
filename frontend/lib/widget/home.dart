@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widget/saving-goal/list-saving-goal.dart';
 import 'package:frontend/widget/user/login.dart';
+import '../models/user.dart';
 import 'expense/list-expense.dart';
 import 'income/list-income.dart';
 
-class HomeScreen extends StatelessWidget {
-  int _selectedIndex = 0;
+class HomeScreen extends StatefulWidget {
+  final User? user;
+  const HomeScreen({Key? key, this.user}) : super(key: key);
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -17,11 +20,18 @@ class HomeScreen extends StatelessWidget {
     LoginScreen()
   ];
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
   void _navigateTo(BuildContext context, int index) {
     Navigator.pop(context);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => _widgetOptions[index]),
+      MaterialPageRoute(builder: (context) => HomeScreen._widgetOptions[index]),
     );
   }
 
@@ -45,8 +55,8 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-                accountName: Text("Marcos Albuquerque"),
-                accountEmail: Text("marcos@teste.com"),
+                accountName: Text(widget.user?.name ?? "undefined"),
+                accountEmail: Text(widget.user?.email ?? "undefined"),
                 currentAccountPicture: Image.asset('assets/underpants.png'),
                 decoration: BoxDecoration(
                   color: Color(0xFF53A1F5),

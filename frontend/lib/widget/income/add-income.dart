@@ -7,7 +7,7 @@ import '../../models/income.dart';
 
 class AddIncomeScreen extends StatefulWidget {
   final Income? income;
-  AddIncomeScreen({Key? key, this.income = null}) : super(key: key);
+  const AddIncomeScreen({Key? key, this.income}) : super(key: key);
   @override
   State<AddIncomeScreen> createState() => _AddIncomeScreenState();
 }

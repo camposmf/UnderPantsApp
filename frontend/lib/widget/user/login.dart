@@ -1,8 +1,10 @@
+import 'package:frontend/models/user.dart';
+import 'package:frontend/controller/user_controller.dart';
+
+import '../home.dart';
+import 'change-password.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/widget/user/register-user.dart';
-
-import 'change-password.dart';
-import '../home.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -182,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onTap: () {
                               Navigator.of(context).push(
                                   MaterialPageRoute(
-                                      builder: (context) => RegisterScreen()));
+                                      builder: (context) => CreateUserScreen()));
                             },
                             child: Text(
                               "Cadastre-se",
@@ -209,11 +211,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm() async{
     if (_formKey.currentState?.validate() ?? false) {
+
+      String email = emailController.text;
+      String password = passwordController.text;
+
+      var userData = await getUserByEmailAndPassword(email, password);
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen(user: userData)),
       );
     }
   }

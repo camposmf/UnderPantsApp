@@ -80,7 +80,6 @@ class _ListExpenseScreenState extends State<ListExpenseScreen> {
       body: ListView.builder(
         itemCount: _expensesDisplay.length,
         itemBuilder: (context, index) {
-
           final expense = _expensesDisplay[index];
           return Container(
             margin: EdgeInsets.all(15),

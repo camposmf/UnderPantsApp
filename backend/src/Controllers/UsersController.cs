@@ -22,9 +22,9 @@ namespace UnderPantsApp.Controllers
         [HttpGet("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetLogin(string login, string password)
+        public async Task<IActionResult> GetLogin(string email, string password)
         {
-            var userEntity = await _userRepository.GetLoginAsync(login, password);
+            var userEntity = await _userRepository.GetLoginAsync(email, password);
 
             if(userEntity == null)
                 return NotFound("Não foi possível fazer o login. Verifique seu nome de usuário e senha e tente novamente.");
@@ -32,32 +32,18 @@ namespace UnderPantsApp.Controllers
             return Ok(_mapper.Map<UserModel>(userEntity));
         }
 
-        [HttpGet("{userId}", Name = "GetUser")]
+        [HttpGet("get-by-cpf/{cpf}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserModel>> GetUser(int userId)
+        public async Task<IActionResult> GetUserByCpf(string cpf)
         {
-            var userEntity = await _userRepository.GetUserAsync(userId);
+            var userEntity = await _userRepository.GetUserByCpf(cpf);
 
-            if(userEntity == null)
-                return NotFound("Usuário não encontrado no sistema.");
+            if (userEntity == null)
+                return NotFound("Não foi possível encontrar o usúario através do email e o cpf passado. Verifique seu nome de usuário e senha e tente novamente.");
 
             return Ok(_mapper.Map<UserModel>(userEntity));
         }
-
-        [HttpGet()]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
-        {
-            var usersEntity = await _userRepository.GetUsersAsync();
-
-            if (!usersEntity.Any())
-                return NotFound("Usuário não encontrado no sistema.");
-
-            return Ok(_mapper.Map<IEnumerable<UserModel>>(usersEntity));
-        }
-
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -90,20 +76,6 @@ namespace UnderPantsApp.Controllers
             _mapper.Map(user, userEntity);
             await _userRepository.SaveChangesAsync();
 
-            return NoContent();
-        }
-
-        [HttpDelete("{userId}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteUser(int userId)
-        {
-            var userEntity = await _userRepository.GetUserAsync(userId);
-
-            if(userEntity == null) 
-                return NotFound("Usuário não encontrado no sistema.");
-
-            await _userRepository.DeleteUserAsync(userEntity);
             return NoContent();
         }
 

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widget/user/check-user.dart';
+import 'package:frontend/widget/user/login.dart';
+
+import '../../controller/user_controller.dart';
+import '../../models/user.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
+  final User? user;
+  const ChangePasswordScreen({Key? key, this.user}) : super(key: key);
   @override
   _ChangePasswordScreenState createState() => _ChangePasswordScreenState();
 }
@@ -17,6 +24,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    emailController.text = widget.user?.email ?? "";
     return Scaffold(
       backgroundColor: Color(0xffffffff),
       appBar: AppBar(
@@ -29,7 +38,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
         leading: InkWell(
           onTap: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(); // Fecha o AlertDialog
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CheckUserScreen()),
+            );
           },
           child: Icon(
             Icons.arrow_back,
@@ -231,7 +244,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) {
       if (newPasswordController.text != repeatPasswordController.text) {
         // Senhas não correspondem, exibe uma mensagem de erro
@@ -242,7 +255,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
         );
       } else {
-        // Lógica para recuperar senha
+        User? user = widget.user;
+        int userId = widget.user?.id ?? 0;
+
+        // Atualizando password
+        user?.password = newPasswordController.text;
+
+        await editUser(userId, user);
         _showSuccessDialog();
       }
     }
@@ -253,12 +272,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Email para recuperar senha enviado com sucesso!!"),
+          title: Text("Senha alterada com sucesso!!"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
               child: Text("OK"),
             ),
